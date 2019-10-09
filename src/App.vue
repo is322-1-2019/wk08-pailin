@@ -1,28 +1,26 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <ex01-page></ex01-page>
+    <ex02-page></ex02-page>
+    <ex03-page></ex03-page>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Ex01Page from './components/ex01/Ex01Page.vue'
+import Ex02Page from './components/ex02/Ex02Page.vue'
+import Ex03Page from './components/ex03/Ex03Page.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Ex01Page,
+    Ex02Page,
+    Ex03Page
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
