@@ -11,8 +11,11 @@ export const mutations = {
   },
   deletePerson(state, person) {
     let people = state.people;
-    //delete person
-    person.pop();
+    people.splice(
+      people.findIndex(
+        item => {
+          return item.id == person.id
+        }), 1);
     Vue.set(state, "people", people);
   }
 };

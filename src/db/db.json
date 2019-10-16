@@ -1,0 +1,18 @@
+{
+  "people": [
+    {
+      "title": "นาง",
+      "firstName": "sssss",
+      "lastName": "uuuu",
+      "isActive": true,
+      "id": 4
+    },
+    {
+      "title": "นาย",
+      "firstName": "uuuuu",
+      "lastName": "tttt",
+      "isActive": false,
+      "id": 6
+    }
+  ]
+}

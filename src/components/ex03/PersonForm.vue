@@ -1,9 +1,6 @@
 <template>
   <div class="card-content">
     <b-field grouped>
-        <b-field label="ID" expanded>
-        <b-input v-model="person.stuId" placeholder="ID" rounded></b-input>
-      </b-field>
       <b-field label="คำนำหน้า">
         <b-select v-model="person.title" placeholder="คำนำหน้า" rounded>
           <option>นาย</option>
@@ -22,9 +19,10 @@
       <b-field>
         <b-checkbox v-model="person.isActive">Active</b-checkbox>
       </b-field>
-      <b-field>
+      <b-field class="buttons" grouped>
         <b-button @click="savePerson" type="is-primary">Save</b-button>
-      </b-field>
+        <b-button @click="getPeople" type="is-primary">Refresh</b-button>
+    </b-field>
     </b-field>
   </div>
 </template>
@@ -33,7 +31,6 @@ export default {
   data() {
     return {
       person: {
-        stuId: "",
         title: "",
         firstName: "",
         lastName: "",
@@ -44,12 +41,14 @@ export default {
   methods: {
     savePerson() {
       this.$store.dispatch("people/addPerson", {
-          stuId: this.person.stuId,
         title: this.person.title,
         firstName: this.person.firstName,
         lastName: this.person.lastName,
         isActive: this.person.isActive,
       });
+    },
+    getPeople() {
+      this.$store.dispatch("people/getPeople");
     }
   }
 };

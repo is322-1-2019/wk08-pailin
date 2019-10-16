@@ -12,7 +12,6 @@ export default {
   data() {
     return {
       columns: [
-          {field: "stuId", label: "ID"},
         { field: "title", label: "คำนำหน้า" },
         { field: "firstName", label: "ชื่อ" },
         { field: "lastName", label: "นามสกุล" },

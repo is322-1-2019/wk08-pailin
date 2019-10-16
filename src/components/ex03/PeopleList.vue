@@ -1,9 +1,10 @@
 <template>
   <div class="card-content">
     <b-field label="แสดงรายชื่อทั้งหมด" v-if="people.length">
-      <b-table :data="people" 
-        :columns="columns" 
-        :selected.sync="people.deletePerson">
+      <b-table @dblclick="deletePerson"
+        :data="people" 
+        :columns="columns"
+        :selected.sync="selected">
       </b-table>
     </b-field>
   </div>
@@ -12,11 +13,13 @@
 import { mapState } from "vuex";
 
 export default {
+  created() {
+    this.$store.dispatch("people/getPeople");
+  },
   data() {
     return {
-        checkedRows: [],
+      selected: {},
       columns: [
-        {field: "stuId", label: "ID"},
         { field: "title", label: "คำนำหน้า" },
         { field: "firstName", label: "ชื่อ" },
         { field: "lastName", label: "นามสกุล" },
@@ -29,13 +32,7 @@ export default {
   },
   methods: {
     deletePerson() {
-      this.$store.dispatch("people/deletePerson", {
-          stuId: this.person.stuId,
-        title: this.person.title,
-        firstName: this.person.firstName,
-        lastName: this.person.lastName,
-        isActive: this.person.isActive,
-      });
+      this.$store.dispatch("people/deletePerson", this.selected);
     }
   }
 };
