@@ -31,12 +31,16 @@
     <p>User name between 8-30: {{ $v.form.username.email }}</p>
     <p>Require password: {{ $v.form.password.required }}</p>
     <p>Password between 4-16: {{ $v.form.password.minLength }}</p>
+    <!-- <p>Login result : {{ this.latestMessage }}</p> -->
   </div>
 </template>
 <script>
 import NavBar from "./NavBar.vue";
 
 import { required, minLength,email } from "vuelidate/lib/validators";
+import firebase from "firebase/app";
+import "firebase/auth";
+// import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -47,7 +51,8 @@ export default {
       form: {
         username: "",
         password: ""
-      }
+      },
+      loginResult: {}
     };
   },
   validations: {
@@ -65,10 +70,41 @@ export default {
   methods: {
     touch() {
       this.$v.form.$touch();
+      if (this.$v.form.$invalid){
+        return;
+      }
+      firebase.auth().signInWithEmailAndPassword(this.form.username, this.form.password)
+      .then(data => {
+          this.loginResult = data.user;
+          this.$store.dispatch("messages/addMessage","Logged In");
+          this.$router.push("/ex03");
+        })
+
+        .catch(error => {
+          this.loginResult = error;
+        });
     },
     reset() {
       this.$v.form.$reset();
-    }
+      firebase.auth().signOut()
+        .then(data => {
+          this.loginResult = data;
+          this.$buefy.dialog.alert({
+            type: "is-primary",
+            title: "logout",
+            message: "logged out",
+            confirmText: "close",
+            onConfirm: this.goToBottom,
+          });
+          this.$store.dispatch("messages/addMessage","Logged Out");
+        })
+        .catch(error => {
+          this.loginResult = error;
+        });
+    },
+    // computed: {
+    //   ...mapGetters("messages", ["latestMessage"])
+    // }
   }
 };
 </script>
